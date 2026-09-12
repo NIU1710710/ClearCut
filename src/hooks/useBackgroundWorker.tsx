@@ -14,6 +14,8 @@ type ProcessingStatus = 'idle' | 'processing' | 'done' | 'error';
 
 export type WorkerState = {
   modelStatus: 'idle' | 'loading' | 'ready' | 'error';
+  modelProgress?: number;
+  modelPhase?: string;
   uploadStatus: UploadStatus;
   processingStatus: ProcessingStatus;
 };
@@ -38,14 +40,6 @@ export function useBackgroundWorker(
     const worker = new BackgroundRemoverWorker();
     workerRef.current = worker;
 
-    // Estat inicial
-    sileo.info({
-      id: TOAST_MODEL_ID,
-      title: 'Initializing AI',
-      description: 'Preparing environment...',
-      duration: Infinity,
-    });
-
     const handleMessage = (event: MessageEvent<WorkerOutgoingMessage>) => {
       const message = event.data;
 
@@ -55,26 +49,14 @@ export function useBackgroundWorker(
         if (now - lastProgressUpdateRef.current < 150) return;
         lastProgressUpdateRef.current = now;
 
-        setState((prev) => ({ ...prev, modelStatus: 'loading' }));
-        
         const percentage = Math.max(0, Math.min(100, Math.round(message.progress)));
         
-        sileo.info({
-          id: TOAST_MODEL_ID,
-          title: 'Loading AI model',
-          description: (
-            <div className="mt-1 w-full min-w-[240px] space-y-2 py-1">
-              <div className="flex justify-between text-[11px] font-medium text-slate-500">
-                <span>{message.phase || 'Downloading weights'}...</span>
-                <span className="font-mono text-cyan-500">{percentage}%</span>
-              </div>
-              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                <div className="h-full bg-cyan-500 transition-all duration-150" style={{ width: `${percentage}%` }} />
-              </div>
-            </div>
-          ),
-          duration: Infinity,
-        });
+        setState((prev) => ({ 
+          ...prev, 
+          modelStatus: 'loading',
+          modelProgress: percentage,
+          modelPhase: message.phase || 'Downloading weights'
+        }));
         return;
       }
 
@@ -91,6 +73,7 @@ export function useBackgroundWorker(
             });
           }, 800);
         } else if (message.status === 'error') {
+          setState((prev) => ({ ...prev, modelStatus: 'error' }));
           sileo.error({ id: TOAST_MODEL_ID, title: 'Error', description: message.message });
         }
         return;
@@ -152,22 +135,7 @@ export function useBackgroundWorker(
     };
   }, [onSuccess, latestRequestIdRef]);
 
-  // Timeout de seguretat de 25s si la connexió s'ha quedat penjada
-  useEffect(() => {
-    if (state.modelStatus !== 'loading') return;
-    const timeoutId = window.setTimeout(() => {
-      setState((prev) => {
-        if (prev.modelStatus !== 'loading') return prev;
-        sileo.error({
-          id: TOAST_MODEL_ID,
-          title: 'Loading timeout',
-          description: 'Taking too long. Please refresh.',
-        });
-        return { ...prev, modelStatus: 'error' };
-      });
-    }, 25000);
-    return () => window.clearTimeout(timeoutId);
-  }, [state.modelStatus]);
+
 
   const processImage = (id: string, imageData: ImageData) => {
     workerRef.current?.postMessage({ type: 'process-image', id, imageData } as WorkerIncomingMessage);
