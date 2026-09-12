@@ -121,14 +121,14 @@ function App() {
 		{/* Bombolla interactiva (el "blob" del ratolí) */}
 		<div 
 			ref={blobRef}
-			className="pointer-events-none fixed h-96 w-96 rounded-full bg-red-500/20 blur-[128px] dark:bg-red-500/10 transition-transform duration-500 ease-out will-change-transform"
+			className="pointer-events-none fixed h-96 w-96 rounded-full bg-cyan-500/20 blur-[128px] dark:bg-cyan-500/10 transition-transform duration-500 ease-out will-change-transform"
 		/>
 		
 		{/* Bombolles orgàniques */}
 		{/* He rebaixat l'opacitat en mode light perquè no siguin massa invasives */}
-		<div className="absolute -top-[10%] -left-[10%] h-[600px] w-[600px] rounded-full bg-red-500/20 blur-[128px] dark:bg-red-500/10 animate-drift" />
-		<div className="absolute top-[20%] -right-[10%] h-[500px] w-[500px] rounded-full bg-orange-500/20 blur-[128px] dark:bg-orange-500/10 animate-swirl [animation-delay:-7s]" />
-		<div className="absolute -bottom-[10%] left-[20%] h-[400px] w-[400px] rounded-full bg-rose-500/20 blur-[128px] dark:bg-rose-500/10 animate-breathe [animation-delay:-4s]" />
+		<div className="absolute -top-[10%] -left-[10%] h-[600px] w-[600px] rounded-full bg-cyan-500/20 blur-[128px] dark:bg-cyan-500/10 animate-drift" />
+		<div className="absolute top-[20%] -right-[10%] h-[500px] w-[500px] rounded-full bg-teal-500/20 blur-[128px] dark:bg-teal-500/10 animate-swirl [animation-delay:-7s]" />
+		<div className="absolute -bottom-[10%] left-[20%] h-[400px] w-[400px] rounded-full bg-indigo-500/20 blur-[128px] dark:bg-indigo-500/10 animate-breathe [animation-delay:-4s]" />
 		</div>
       {/* ── Header ───────────────────────────────────────────────────────── */}
       <header
@@ -167,7 +167,7 @@ function App() {
             state.modelStatus === 'ready'
               ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 ring-1 ring-emerald-500/20'
               : state.modelStatus === 'error'
-              ? 'bg-red-500/10 text-red-700 dark:text-red-300 ring-1 ring-red-500/20'
+              ? 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 ring-1 ring-cyan-500/20'
               : 'bg-amber-500/10 text-amber-700 dark:text-amber-300 ring-1 ring-amber-500/20'
           }`}>
             <span className={`h-1.5 w-1.5 rounded-full ${
@@ -237,7 +237,7 @@ function App() {
               <div className="h-px bg-slate-100 dark:bg-white/[0.06]" />
 
               <div className="mt-auto flex flex-col gap-2.5">
-                <button type="button" onClick={onDownload} disabled={!displaySrc} className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-400 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-red-300 active:scale-[0.98] disabled:opacity-40">
+                <button type="button" onClick={onDownload} disabled={!displaySrc} className="flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-400 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 active:scale-[0.98] disabled:opacity-40">
                   Download PNG
                 </button>
                 <button type="button" onClick={() => setIsEditing(false)} className="flex w-full items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-400 ring-1 ring-slate-200 dark:ring-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition">
@@ -253,13 +253,13 @@ function App() {
           <div className="mx-auto flex w-full max-w-2xl flex-col gap-10 px-4 pb-16 pt-8 sm:px-6 sm:pt-12">
             
             <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 rounded-full bg-red-500/10 px-3 py-1 text-[11px] font-medium text-red-700 dark:text-red-300 ring-1 ring-red-500/20">
-                <span className="h-1 w-1 rounded-full bg-red-500 dark:bg-red-400" />
+              <div className="inline-flex items-center gap-2 rounded-full bg-cyan-500/10 px-3 py-1 text-[11px] font-medium text-cyan-700 dark:text-cyan-300 ring-1 ring-cyan-500/20">
+                <span className="h-1 w-1 rounded-full bg-cyan-500 dark:bg-cyan-400" />
                 Runs entirely in your browser — no uploads, no server
               </div>
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
                 Cut out backgrounds<br />
-                <span className="bg-gradient-to-r from-red-600 to-orange-600 dark:from-red-300 dark:to-orange-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-cyan-300 dark:to-teal-400 bg-clip-text text-transparent">
                   instantly.
                 </span>
               </h1>
@@ -279,7 +279,7 @@ function App() {
 				<p className="text-xs font-medium text-slate-500 dark:text-slate-400">
 					{isProcessing ? (
 					<span className="inline-flex items-center gap-2">
-						<span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-red-500 dark:bg-red-400" />
+						<span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-500 dark:bg-cyan-400" />
 						Removing background…
 					</span>
 					) : null}
@@ -289,7 +289,7 @@ function App() {
 					<button 
 					type="button" 
 					onClick={onDownload} 
-					className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-red-500 px-6 py-2.5 text-sm font-bold text-slate-950 transition-all hover:scale-[1.02] hover:bg-red-400 hover:shadow-[0_0_20px_-5px_rgba(34,211,238,0.5)] active:scale-[0.98]"
+					className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-cyan-500 px-6 py-2.5 text-sm font-bold text-slate-950 transition-all hover:scale-[1.02] hover:bg-cyan-400 hover:shadow-[0_0_20px_-5px_rgba(34,211,238,0.5)] active:scale-[0.98]"
 					>
 					{/* Icona de descàrrega */}
 					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -306,16 +306,16 @@ function App() {
                 ) : (
                   <div className="flex h-56 items-center justify-center rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-slate-100 dark:bg-white/[0.02]">
                     <div className="flex flex-col items-center gap-2">
-                      <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-red-500 dark:bg-red-400" />
+                      <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-cyan-500 dark:bg-cyan-400" />
                       <span className="text-[11px] text-slate-500">Processing…</span>
                     </div>
                   </div>
                 )}
 
                 {canEdit && (
-                  <button type="button" onClick={() => setIsEditing(true)} className="group flex w-full items-center justify-between rounded-xl border border-slate-200 dark:border-white/[0.07] bg-white dark:bg-white/[0.03] px-4 py-3 text-left hover:border-red-500/30 hover:bg-red-50 dark:hover:bg-red-500/[0.04] transition shadow-sm dark:shadow-none">
+                  <button type="button" onClick={() => setIsEditing(true)} className="group flex w-full items-center justify-between rounded-xl border border-slate-200 dark:border-white/[0.07] bg-white dark:bg-white/[0.03] px-4 py-3 text-left hover:border-cyan-500/30 hover:bg-cyan-50 dark:hover:bg-cyan-500/[0.04] transition shadow-sm dark:shadow-none">
                     <div className="flex items-center gap-3">
-                      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 ring-1 ring-red-500/20">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 ring-1 ring-cyan-500/20">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                       </span>
                       <div>
@@ -347,12 +347,12 @@ function App() {
             toast: '!rounded-2xl border bg-white text-slate-900 border-slate-200 shadow-xl dark:bg-[#0b1220] dark:text-slate-50 dark:border-red-500/20 dark:shadow-[0_20px_60px_rgba(0,0,0,0.5)] !backdrop-blur-xl transition-all duration-300',
             title: '!font-semibold text-slate-900 dark:text-white',
             description: 'text-slate-500 dark:text-slate-400',
-            icon: 'text-red-500 dark:text-red-400',
+            icon: 'text-cyan-500 dark:text-cyan-400',
             success: '!border-emerald-500/30',
             error: '!border-red-500/30',
             warning: '!border-amber-500/30',
             info: '!border-red-500/30',
-            closeButton: 'bg-slate-50 dark:bg-[#0f172a] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-red-500/15 hover:bg-slate-100 dark:hover:bg-[#1e293b]',
+            closeButton: 'bg-slate-50 dark:bg-[#0f172a] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-cyan-500/15 hover:bg-slate-100 dark:hover:bg-[#1e293b]',
           },
         }}
       />
@@ -365,7 +365,7 @@ function App() {
             <div className="relative flex h-20 w-20 items-center justify-center">
               <div className="absolute inset-0 rounded-full border-4 border-slate-100 dark:border-slate-800" />
               <div 
-                className="absolute inset-0 rounded-full border-4 border-transparent border-t-red-500 border-r-red-500 animate-spin transition-all duration-300"
+                className="absolute inset-0 rounded-full border-4 border-transparent border-t-cyan-500 border-r-cyan-500 animate-spin transition-all duration-300"
                 style={{ transform: `rotate(${(state.modelProgress || 0) * 3.6}deg)` }}
               />
               <span className="text-xl font-bold text-slate-900 dark:text-white">
@@ -387,7 +387,7 @@ function App() {
             
             <div className="w-full h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
               <div 
-                className="h-full bg-gradient-to-r from-red-500 to-orange-400 transition-all duration-300 ease-out"
+                className="h-full bg-gradient-to-r from-cyan-500 to-teal-400 transition-all duration-300 ease-out"
                 style={{ width: `${state.modelProgress || 0}%` }}
               />
             </div>
